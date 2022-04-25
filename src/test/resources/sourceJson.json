@@ -1,0 +1,102 @@
+{
+  "orderNo": "ORDER666",
+  "orderName": "ORDER_NAME",
+  "orderLineList": [
+    {
+      "orderLineNo": "ORDER_LINE666",
+      "skuCode": "SKU_CODE666",
+      "skuName": "NIKE",
+      "price": "123"
+    },
+    {
+      "orderLineNo": "ORDER_LINE777",
+      "skuCode": "SKU_CODE777",
+      "skuName": "NIKE",
+      "price": "123"
+    }
+  ],
+  "itemList": [
+    {
+      "itemName": "鞋子",
+      "skuList": [
+        {
+          "skuName": "鞋子A",
+          "skuPrice": "66",
+          "skuProperty": [
+            {
+              "pName": "颜色",
+              "pValue": "黑色"
+            },
+            {
+              "pName": "尺码",
+              "pValue": "30"
+            },
+            {
+              "pName": "材料",
+              "pValue": "塑料"
+            }
+          ]
+        },
+        {
+          "skuName": "鞋子B",
+          "skuPrice": "77",
+          "skuProperty": [
+            {
+              "pName": "颜色",
+              "pValue": "白色"
+            },
+            {
+              "pName": "尺码",
+              "pValue": "40"
+            },
+            {
+              "pName": "材料",
+              "pValue": "塑料"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "itemName": "裤子",
+      "skuList": [
+        {
+          "skuName": "裤子A",
+          "skuPrice": "66",
+          "skuProperty": [
+            {
+              "pName": "颜色",
+              "pValue": "黄色"
+            },
+            {
+              "pName": "尺码",
+              "pValue": "L"
+            },
+            {
+              "pName": "材料",
+              "pValue": "纯棉"
+            }
+          ]
+        },
+        {
+          "skuName": "裤子B",
+          "skuPrice": "77",
+          "skuProperty": [
+            {
+              "pName": "颜色",
+              "pValue": "白色"
+            },
+            {
+              "pName": "尺码",
+              "pValue": "XXL"
+            },
+            {
+              "pName": "材料",
+              "pValue": "纯棉"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
