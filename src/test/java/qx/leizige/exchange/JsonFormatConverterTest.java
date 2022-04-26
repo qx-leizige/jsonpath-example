@@ -2,18 +2,23 @@ package qx.leizige.exchange;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import org.junit.Test;
 import qx.leizige.BaseTest;
-import qx.leizige.JsonExchange;
+import qx.leizige.JsonFormatConverter;
+import qx.leizige.module.JsonConvertTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class OrderJsonExchangeTest extends BaseTest {
+public class JsonFormatConverterTest extends BaseTest {
 
     private final String sourceJson = "{\n" +
             "  \"orderNo\": \"ORDER666\",\n" +
             "  \"orderName\": \"ORDER_NAME\",\n" +
+            "  \"createTime\":\"2020-11-18T04:31:40.886Z\",\n" +
+            "  \"orderStatus\":\"3\",\n" +
             "  \"orderLineList\": [\n" +
             "    {\n" +
             "      \"orderLineNo\": \"ORDER_LINE666\",\n" +
@@ -116,44 +121,34 @@ public class OrderJsonExchangeTest extends BaseTest {
 
     @Test
     public void test() {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("order_no", "orderNo");
-        map.put("order_name", "orderName");
-
-        //单个字段转集合
-        map.put("order_line_no_list[1].order_no", "orderLineList[].orderLineNo");
-        map.put("sku_code_list[1].sku_code", "orderLineList[].skuCode");
-        map.put("sku_name_list[1].sku_name", "orderLineList[].skuName");
-        map.put("order_line_price_list[1].price", "orderLineList[].price");
-        //集合中的字段转换成单一字段
-        map.put("order_line_no_simple_list", "orderLineList[].orderLineNo");
-
-
-        //集合转换
-        //1.整个数组复制过来,改变数组属性名
-//        map.put("order_line_new_list[1]", "orderLineList[]");
-        //2.数组下面所有字段转换成新的,字段名转换
-        map.put("order_line_new_list[1].order_no", "orderLineList[].orderLineNo");
-        map.put("order_line_new_list[1].sku_code", "orderLineList[].skuCode");
-        map.put("order_line_new_list[1].sku_name", "orderLineList[].skuName");
-        map.put("order_line_new_list[1].price", "orderLineList[].price");
-        //3.集合套集合
-        map.put("sku_property_list[1].sku_property[1]", "itemList[].skuList[].skuProperty");
-        map.put("sku_property_list[1].sku_property[1].sku_name", "itemList[].skuList[].skuName");
-
-
-
-        //层级合并
-//        map.put("c.c1", "C.C1.C11");
-//        //部分层级合并
-//        map.put("d.d1[1].d12", "C.C1[].C11");
-//        //层级重组
-//        map.put("e[2].e1[1].e12", "C[].C1[].C11");
+        List<JsonConvertTemplate> templateList = new ArrayList<>();
+        templateList.add(new JsonConvertTemplate("orderNo","order_no",  "", ""));
+        templateList.add(new JsonConvertTemplate( "orderName", "order_name","", ""));
+        templateList.add(new JsonConvertTemplate("createTime","create_time",  "LocalDateTime", ""));
+        templateList.add(new JsonConvertTemplate("orderStatus", "order_status", "Short", "if(value == '3') {value = '10'}; if(value == '6'){value='20'};return value;"));
+        templateList.add(new JsonConvertTemplate( "orderLineList[].orderLineNo","order_line_no_list[1].order_no", "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].skuCode", "sku_code_list[1].sku_code", "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].skuName", "sku_name_list[1].sku_name", "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].price","order_line_price_list[1].price",  "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].orderLineNo","order_line_no_simple_list",  "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[]","order_line_new_list_w[1]",  "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].orderLineNo","order_line_new_list[1].order_no",  "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].skuCode","order_line_new_list[1].sku_code",  "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].skuName", "order_line_new_list[1].sku_name", "", ""));
+        templateList.add(new JsonConvertTemplate("orderLineList[].price","order_line_new_list[1].price",  "", ""));
+        templateList.add(new JsonConvertTemplate("itemList[].skuList[].skuProperty","sku_property_list[1].sku_property[1]",  "", ""));
         JSONObject sourceJsonObj = JSON.parseObject(sourceJson);
-
-        JSONObject targetJsonObj = JsonExchange.exchangeJson(sourceJsonObj, map);
+        JSONObject targetJsonObj = JsonFormatConverter.exchangeJson(sourceJsonObj, templateList);
         System.err.println(JSON.toJSONString(targetJsonObj, true));
-
     }
 
+    @Test
+    public void groovyTest() {
+        String valueExpression = " if(value == '3') {value = 10};else if(value == '6'){value=20};return value ";
+        Binding binding = new Binding();
+        binding.setVariable("value", "6");
+        GroovyShell shell = new GroovyShell(binding);
+        Object value = shell.evaluate(valueExpression);
+        System.out.println(value);
+    }
 }

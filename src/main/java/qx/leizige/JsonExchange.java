@@ -1,6 +1,5 @@
 package qx.leizige;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import com.google.common.collect.Maps;
@@ -8,6 +7,8 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 /**
+ * 转换json格式
+ *
  * @author leizige
  */
 public class JsonExchange {
@@ -56,14 +57,14 @@ public class JsonExchange {
 
 
     final static String target = ".";
-    final static String ruleKeyPointReplace = "/";
+    final static String ruleKeyPointReplace = "/";          //路径中的.替换成/
     final static String ruleValuePointReplace = "/\\d*/*";  // 匹配 / 任意数字 / 任意值
 
 
     /**
      * 从规则生成转换正则，主要针对目标jsonPath和源jsonPath
      */
-    public static Map<String, String> convertRules(Map<String, String> oldRuleMap) {
+    private static Map<String, String> convertRules(Map<String, String> oldRuleMap) {
         Map<String, String> newRuleMap = Maps.newLinkedHashMap();
         oldRuleMap.forEach((oldPath, newPath) -> {
             //针对目标路径进行转换
@@ -72,8 +73,6 @@ public class JsonExchange {
             String newValue = "/" + newPath.replaceAll(ruleValueRegex, ruleValueReplace).replace(target, ruleValuePointReplace);
             newRuleMap.put(newKey, newValue);
         });
-//        System.out.println(JSON.toJSONString(oldRuleMap, true));
-//        System.out.println(JSON.toJSONString(newRuleMap, true));
         return newRuleMap;
     }
 }
