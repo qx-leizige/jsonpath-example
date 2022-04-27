@@ -37,4 +37,7 @@ public class JsonConvertTemplate implements Serializable {
      */
     private String valueExpression;
 
+
+    private String defaultValue = "";
+
 }

@@ -30,30 +30,42 @@ public class JsonFormatConverter {
     public static JSONObject exchangeJson(JSONObject sourceJsonObj, List<JsonConvertTemplate> templateList) {
         convertPathToRegexPath(templateList);
         JSONObject newJson = new JSONObject(true);
+        //处理没有源路径的情况
+        templateList.forEach(template -> {
+            if (StringUtils.isEmpty(template.getOldPath()) && StringUtils.isNotEmpty(template.getNewPath())) {
+                String defaultValue = template.getDefaultValue();
+                appendJsonPath(newJson, template.getNewPath(), StringUtils.isEmpty(defaultValue) ? defaultValue : "");
+            }
+        });
         Map<String, Object> paths = JSONPath.paths(sourceJsonObj);
         for (Map.Entry<String, Object> pathEntry : paths.entrySet()) {
             templateList.forEach(template -> {
-                if (pathEntry.getKey().matches(template.getOldPath())) {        //oldPath   /orderLineList/(\d+)/\d*/*skuCode
-                   // key = /oderLine/1/skuCode   oldPath = /orderLine/(\d+)/\d*/skuCode  newPath = /sku_code_list/$1/sku_code
+                if (StringUtils.isNotEmpty(template.getOldPath()) && pathEntry.getKey().matches(template.getOldPath())) {        //oldPath   /orderLineList/(\d+)/\d*/*skuCode
+                    // key = /oderLine/1/skuCode   oldPath = /orderLine/(\d+)/\d*/skuCode  newPath = /sku_code_list/$1/sku_code
                     String newPath = pathEntry.getKey().replaceAll(template.getOldPath(), template.getNewPath());
                     //获取转换后的value
                     Object newValue = convertTo(template.getTargetType(), template.getValueExpression(), pathEntry.getValue());
-                    if (JSONPath.contains(newJson, newPath) && JSONPath.size(newJson, newPath) < 0) {
-                        //path下已经存在一个值，则需要将类型转换为jsonArray并添加第二个值
-                        Object tmp = JSONPath.eval(newJson, newPath);
-                        Object[] tArray = {tmp, newValue};
-                        JSONPath.set(newJson, newPath, tArray);
-                    } else if (JSONPath.size(newJson, newPath) > 1) {
-                        //path下已经存在数组对象，直接追加
-                        JSONPath.arrayAdd(newJson, newPath, newValue);
-                    } else {
-                        //path不存在，直接添加对象
-                        JSONPath.set(newJson, newPath, newValue);
-                    }
+                    appendJsonPath(newJson, newPath, newValue);
                 }
             });
         }
         return newJson;
+    }
+
+
+    private static void appendJsonPath(JSONObject newJson, String newPath, Object newValue) {
+        if (JSONPath.contains(newJson, newPath) && JSONPath.size(newJson, newPath) < 0) {
+            //path下已经存在一个值，则需要将类型转换为jsonArray并添加第二个值
+            Object tmp = JSONPath.eval(newJson, newPath);
+            Object[] tArray = {tmp, newValue};
+            JSONPath.set(newJson, newPath, tArray);
+        } else if (JSONPath.size(newJson, newPath) > 1) {
+            //path下已经存在数组对象，直接追加
+            JSONPath.arrayAdd(newJson, newPath, newValue);
+        } else {
+            //path不存在，直接添加对象
+            JSONPath.set(newJson, newPath, newValue);
+        }
     }
 
 
@@ -72,9 +84,11 @@ public class JsonFormatConverter {
      */
     private static void convertPathToRegexPath(List<JsonConvertTemplate> templateList) {
         templateList.forEach(template -> {
-            //针对源路径进行转换     /orderList[].skuName
-            String convertOldPath = "/" + template.getOldPath().replaceAll(OLD_PATH_REGEX, OLD_PATH_REPLACEMENT).replace(DOT, OLD_PATH_REPLACE);
-            template.setOldPath(convertOldPath);
+            if (StringUtils.isNotBlank(template.getOldPath())) {
+                //针对源路径进行转换     /orderList[].skuName
+                String convertOldPath = "/" + template.getOldPath().replaceAll(OLD_PATH_REGEX, OLD_PATH_REPLACEMENT).replace(DOT, OLD_PATH_REPLACE);
+                template.setOldPath(convertOldPath);
+            }
             //针对目标路径进行转换    /order_list[1].sku_name
             String convertNewPath = "/" + template.getNewPath().replaceAll(NEW_PATH_REGEX, NEW_PATH_REPLACEMENT).replace(DOT, SLASH);
             template.setNewPath(convertNewPath);
@@ -90,12 +104,12 @@ public class JsonFormatConverter {
      */
     private static Object convertTo(String targetTypeName, String valueExpression, Object val) {
 
-        if (StringUtils.isBlank(targetTypeName)) {
-            return val;
-        }
-
         if (StringUtils.isNotBlank(valueExpression)) {
             val = evaluate(val, valueExpression);
+        }
+
+        if (StringUtils.isBlank(targetTypeName)) {
+            return val;
         }
 
         Object newVal;

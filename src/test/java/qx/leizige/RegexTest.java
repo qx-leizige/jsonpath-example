@@ -26,4 +26,13 @@ public class RegexTest extends BaseTest {
         System.out.println("matcher.group(0) = " + matcher.group(0));
         System.out.println("matcher.group(1) = " + matcher.group(1));
     }
+
+
+    @Test
+    public void test2(){
+        String a = "/orderLine/1/skuCode";
+        String regex = "/orderLine/(\\d+)/\\d*/*skuCode";
+        String rep = "/sku_code_list/$1/sku_code";
+        System.out.println(a.replaceAll(regex,rep));
+    }
 }
