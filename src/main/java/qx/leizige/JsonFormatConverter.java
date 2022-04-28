@@ -31,7 +31,7 @@ public class JsonFormatConverter {
         convertPathToRegexPath(templateList);
         JSONObject newJson = new JSONObject(true);
         //处理没有源路径的情况
-        templateList.forEach(template -> {
+        templateList.stream().filter(v -> StringUtils.isEmpty(v.getOldPath())).forEach(template -> {
             if (StringUtils.isEmpty(template.getOldPath()) && StringUtils.isNotEmpty(template.getNewPath())) {
                 String defaultValue = template.getDefaultValue();
                 appendJsonPath(newJson, template.getNewPath(), StringUtils.isEmpty(defaultValue) ? defaultValue : "");
@@ -39,7 +39,7 @@ public class JsonFormatConverter {
         });
         Map<String, Object> paths = JSONPath.paths(sourceJsonObj);
         for (Map.Entry<String, Object> pathEntry : paths.entrySet()) {
-            templateList.forEach(template -> {
+            templateList.stream().filter(v -> StringUtils.isNotEmpty(v.getOldPath())).forEach(template -> {
                 if (StringUtils.isNotEmpty(template.getOldPath()) && pathEntry.getKey().matches(template.getOldPath())) {        //oldPath   /orderLineList/(\d+)/\d*/*skuCode
                     // key = /oderLine/1/skuCode   oldPath = /orderLine/(\d+)/\d*/skuCode  newPath = /sku_code_list/$1/sku_code
                     String newPath = pathEntry.getKey().replaceAll(template.getOldPath(), template.getNewPath());
