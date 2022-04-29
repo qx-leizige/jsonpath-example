@@ -34,7 +34,7 @@ public class JsonFormatConverter {
         templateList.stream().filter(v -> StringUtils.isEmpty(v.getOldPath())).forEach(template -> {
             if (StringUtils.isEmpty(template.getOldPath()) && StringUtils.isNotEmpty(template.getNewPath())) {
                 String defaultValue = template.getDefaultValue();
-                appendJsonPath(newJson, template.getNewPath(), StringUtils.isEmpty(defaultValue) ? defaultValue : "");
+                appendJsonPath(newJson, template.getNewPath(), StringUtils.isNotEmpty(defaultValue) ? defaultValue : "");
             }
         });
         Map<String, Object> paths = JSONPath.paths(sourceJsonObj);
