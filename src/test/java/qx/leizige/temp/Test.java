@@ -38,9 +38,11 @@ public class Test extends BaseTest {
         templateList.add(new JsonConvertTemplate("full_order_info_list[].full_order_info.orders[].refund_state", "a[1].subOrderDetailList[2].returnStatus", "", "", ""));
         templateList.add(new JsonConvertTemplate("full_order_info_list[].full_order_info.orders[].title", "a[1].subOrderDetailList[2].itemName", "", "", ""));
 
-//        templateList.add(new JsonConvertTemplate("", "omsOrder[1].sitCode", "", "", "YZ"));
+        templateList.add(new JsonConvertTemplate("", "simpleOmsOrder", "jsonObject", "", "{\"sitCode\":\"yz\"}"));
+        templateList.add(new JsonConvertTemplate("", "multiOmsOrder.multi1", "jsonArray", "", "[{\"sitCode\":\"yz\",\"sitName\":\"xx\"}]"));
+        templateList.add(new JsonConvertTemplate("", "multiOmsOrder.multi2", "jsonArray", "", "[{\"sitCode\":\"yz\",\"sitName\":\"xx\"}]"));
         JSONObject sourceJsonObj = JSON.parseObject(sourceJson);
-        JSONObject targetJsonObj = JsonFormatConverter.exchangeJson(sourceJsonObj, templateList);
+        JSONObject targetJsonObj = TempJsonFormatConverter.exchangeJson(sourceJsonObj, templateList);
         System.err.println(JSON.toJSONString(targetJsonObj, true));
     }
 
