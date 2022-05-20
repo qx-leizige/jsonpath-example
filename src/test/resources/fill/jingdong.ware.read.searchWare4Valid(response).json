@@ -1,0 +1,205 @@
+[
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].itemNo",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.outerId",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "666666",
+    "newPath": "omsRecord.items[1].itemNo2",
+    "oldPath": "",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].itemId",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.wareId",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].detailUrl",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.adWords.url",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].originPrice",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.costPrice",
+    "targetType": "BigDecimal",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].price",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.jdPrice",
+    "targetType": "BigDecimal",
+    "valueExpression": ""
+  },
+  //  {京东没找到运费
+  //    "defaultValue": "",
+  //    "newPath": "omsRecord.items[].postFee",
+  //    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[1].---.wareId",
+  //    "targetType": "",
+  //    "valueExpression": ""
+  //  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].outCreatedTime",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.created",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].outUpdateTime",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.modified",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].title",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.title",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].description",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.adWords.words",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "0",
+    "newPath": "omsRecord.items[123].itemType",
+    "oldPath": "",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "无",
+    "newPath": "omsRecord.items[].alias",
+    "oldPath": "",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].barCode",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.barCode",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].image",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.images[].---.imgUrl",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "ONSALE",
+    "newPath": "omsRecord.items[].itemStatus",
+    "oldPath": "",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].itemExtend",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.props",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].outCreatedTime",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.created",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].outModifiedTime",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.modified",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].itemId",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.wareId",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].itemNo",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.outerId",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].price",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.jdPrice",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].costPrice",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.costPrice",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].skuNo",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.outerId",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].barCode",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.barCode",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "123123123",
+    "newPath": "omsRecord.items[].skus[].fillField1",
+    "oldPath": "",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "234234234",
+    "newPath": "omsRecord.items[].skus[].fillField2",
+    "oldPath": "",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "",
+    "newPath": "omsRecord.items[1].skus[].propertyList[].code",
+    "oldPath": "jingdong_ware_read_searchWare4Valid_response.page.data[].---.barCode",
+    "targetType": "",
+    "valueExpression": ""
+  },
+  {
+    "defaultValue": "codeValue",
+    "newPath": "omsRecord.items[1].skus[].propertyList[].value",
+    "oldPath": "",
+    "targetType": "",
+    "valueExpression": ""
+  }
+]
