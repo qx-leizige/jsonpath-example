@@ -8,7 +8,7 @@
           ]
         },
         "remark_info":{
-          "buyer_message":""
+          "buyer_message":"test"
         },
         "address_info":{
           "self_fetch_info":"",
@@ -79,7 +79,8 @@
             "pre_sale_type":"",
             "points_price":"0",
             "root_item_id":"0"
-          }, {
+          },
+          {
             "is_cross_border":"",
             "outer_item_id":"",
             "item_type":0,
