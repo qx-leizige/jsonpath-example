@@ -240,6 +240,9 @@ public class JsonFormatConverter {
 		case "LocalDateTime":
 			newVal = TimeUtils.toLocalDateTime(val.toString().trim());
 			break;
+		case "stringTime":
+			newVal = TimeUtils.toString(val.toString().trim());
+			break;
 		default:
 			newVal = val;
 			break;

@@ -19,16 +19,23 @@ public class TimeUtils implements StringPool {
 
     /**
      * @param localDateTime localDateTime
-     * @param pattern       "yyyy-MM-dd hh:mm:ss" / "yyyy-MM-dd"
      * @return string
      */
-    public static String toString(LocalDateTime localDateTime, String pattern) {
+    public static String toString(LocalDateTime localDateTime) {
         Objects.requireNonNull(localDateTime, "localDateTime");
-        if (Objects.isNull(pattern))
-            pattern = DATE_TIME_FORMATTER_PATTERN;
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern(pattern);
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
         return localDateTime.format(fmt);
     }
+
+    public static String toString(String text) {
+        Objects.requireNonNull(text, "text");
+        if (text.contains("T") || text.contains("Z")) {
+            return toString(LocalDateTime.parse(text));
+        }
+        return toString(LocalDate.parse(text));
+    }
+
+
 
     public static Long toLong(LocalDateTime localDateTime) {
         Objects.requireNonNull(localDateTime, "localDateTime");
